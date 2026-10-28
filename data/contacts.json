@@ -1,0 +1,62 @@
+[
+  {
+    "id": "ct-ana-torres",
+    "name": "Ana Torres",
+    "email": "ana.torres@example.com",
+    "phone": "+51 987 420 115",
+    "company": "Estudio Norte",
+    "role": "Directora creativa",
+    "category": "Clientes",
+    "city": "Lima",
+    "notes": "Reunión de seguimiento el próximo lunes.",
+    "favorite": true,
+    "color": "#ff7a6b",
+    "createdAt": "2026-10-21T14:30:00.000Z",
+    "updatedAt": "2026-10-27T16:20:00.000Z"
+  },
+  {
+    "id": "ct-luis-mendoza",
+    "name": "Luis Mendoza",
+    "email": "luis.mendoza@example.com",
+    "phone": "+51 956 184 260",
+    "company": "Nexo Digital",
+    "role": "Desarrollador web",
+    "category": "Equipo",
+    "city": "Arequipa",
+    "notes": "Responsable de la integración del portal.",
+    "favorite": false,
+    "color": "#4fd1c5",
+    "createdAt": "2026-10-22T10:00:00.000Z",
+    "updatedAt": "2026-10-26T11:10:00.000Z"
+  },
+  {
+    "id": "ct-valeria-rios",
+    "name": "Valeria Ríos",
+    "email": "valeria.rios@example.com",
+    "phone": "+51 914 610 308",
+    "company": "Aurea Consultores",
+    "role": "Consultora comercial",
+    "category": "Proveedores",
+    "city": "Trujillo",
+    "notes": "Enviar propuesta actualizada antes del viernes.",
+    "favorite": true,
+    "color": "#f5b94c",
+    "createdAt": "2026-10-23T08:45:00.000Z",
+    "updatedAt": "2026-10-28T09:05:00.000Z"
+  },
+  {
+    "id": "ct-diego-castro",
+    "name": "Diego Castro",
+    "email": "diego.castro@example.com",
+    "phone": "+51 932 771 442",
+    "company": "Independiente",
+    "role": "Fotógrafo",
+    "category": "Personal",
+    "city": "Cusco",
+    "notes": "Contacto para sesiones corporativas.",
+    "favorite": false,
+    "color": "#7c8cff",
+    "createdAt": "2026-10-24T15:15:00.000Z",
+    "updatedAt": "2026-10-24T15:15:00.000Z"
+  }
+]

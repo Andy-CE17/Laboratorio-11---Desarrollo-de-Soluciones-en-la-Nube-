@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gestor de contactos desplegado en Windows Server y Debian sobre AWS EC2">
+  <title>Contactos Nimbus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="Inicio de Contactos Nimbus">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span><strong>Nimbus</strong><small>contactos</small></span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <button class="nav-item active" data-filter="all"><span class="nav-icon">⌂</span>Resumen</button>
+        <button class="nav-item" data-filter="favorites"><span class="nav-icon">★</span>Favoritos</button>
+        <button class="nav-item" data-filter="Clientes"><span class="nav-icon">◉</span>Clientes</button>
+        <button class="nav-item" data-filter="Equipo"><span class="nav-icon">◇</span>Equipo</button>
+      </nav>
+
+      <div class="sidebar-note">
+        <span class="status-dot"></span>
+        <div><strong>Servidor activo</strong><small id="platformLabel">Comprobando entorno…</small></div>
+      </div>
+      <div class="lab-badge"><span>11</span><div>Laboratorio<br><strong>Virtualización</strong></div></div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">ESPACIO DE TRABAJO · AWS EC2</p>
+          <h1>Tu red de contactos, <em>bien organizada.</em></h1>
+        </div>
+        <button class="primary-button" id="addContactButton"><span>＋</span> Nuevo contacto</button>
+      </header>
+
+      <section class="metrics" aria-label="Resumen de contactos">
+        <article class="metric-card metric-main">
+          <div class="metric-icon">◎</div><div><span>Contactos totales</span><strong id="totalMetric">0</strong><small>Directorio actualizado</small></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-icon coral">★</div><div><span>Favoritos</span><strong id="favoriteMetric">0</strong><small>Acceso rápido</small></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-icon violet">⌘</div><div><span>Organizaciones</span><strong id="companyMetric">0</strong><small>Relaciones activas</small></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-icon amber">↗</div><div><span>Actualizados hoy</span><strong id="todayMetric">0</strong><small>Actividad reciente</small></div>
+        </article>
+      </section>
+
+      <section class="directory-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">DIRECTORIO</p><h2>Personas y organizaciones</h2></div>
+          <div class="toolbar">
+            <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Buscar por nombre, empresa o ciudad"></label>
+            <select id="sortSelect" aria-label="Ordenar contactos"><option value="recent">Más recientes</option><option value="name">Nombre A–Z</option><option value="company">Empresa</option></select>
+          </div>
+        </div>
+
+        <div class="filter-row" id="filterRow">
+          <button class="filter-chip active" data-filter="all">Todos <span id="allCount">0</span></button>
+          <button class="filter-chip" data-filter="Clientes">Clientes</button>
+          <button class="filter-chip" data-filter="Equipo">Equipo</button>
+          <button class="filter-chip" data-filter="Proveedores">Proveedores</button>
+          <button class="filter-chip" data-filter="Personal">Personal</button>
+        </div>
+
+        <div class="contact-grid" id="contactGrid" aria-live="polite"></div>
+        <div class="empty-state hidden" id="emptyState"><div>⌕</div><h3>No encontramos contactos</h3><p>Prueba con otro término o crea un contacto nuevo.</p></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <section class="modal-card">
+      <div class="modal-header"><div><p class="eyebrow">DIRECTORIO NIMBUS</p><h2 id="modalTitle">Nuevo contacto</h2></div><button class="icon-button" id="closeModal" aria-label="Cerrar">×</button></div>
+      <form id="contactForm">
+        <input type="hidden" id="contactId">
+        <div class="avatar-picker"><div class="form-avatar" id="formAvatar">NC</div><div><strong>Perfil del contacto</strong><small>El color ayuda a reconocerlo rápidamente.</small></div><input type="color" id="color" value="#4fd1c5" aria-label="Color del contacto"></div>
+        <div class="form-grid">
+          <label class="field full"><span>Nombre completo *</span><input id="name" required minlength="2" maxlength="80" placeholder="Ej. Mariana Salazar"></label>
+          <label class="field"><span>Correo electrónico *</span><input id="email" type="email" required placeholder="nombre@empresa.com"></label>
+          <label class="field"><span>Teléfono *</span><input id="phone" required minlength="7" placeholder="+51 999 999 999"></label>
+          <label class="field"><span>Empresa</span><input id="company" maxlength="80" placeholder="Organización"></label>
+          <label class="field"><span>Cargo</span><input id="role" maxlength="80" placeholder="Puesto o especialidad"></label>
+          <label class="field"><span>Categoría *</span><select id="category" required><option>Clientes</option><option>Equipo</option><option>Proveedores</option><option>Personal</option></select></label>
+          <label class="field"><span>Ciudad</span><input id="city" maxlength="60" placeholder="Ciudad"></label>
+          <label class="field full"><span>Notas</span><textarea id="notes" maxlength="500" rows="3" placeholder="Información relevante para el seguimiento"></textarea></label>
+        </div>
+        <label class="favorite-toggle"><input id="favorite" type="checkbox"><span>★</span> Marcar como favorito</label>
+        <p class="form-error hidden" id="formError"></p>
+        <div class="form-actions"><button type="button" class="secondary-button" id="cancelButton">Cancelar</button><button type="submit" class="primary-button" id="saveButton">Guardar contacto</button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteTitle">
+    <section class="confirm-card"><div class="danger-icon">!</div><h2 id="deleteTitle">Eliminar contacto</h2><p>Esta acción quitará el contacto del directorio de forma permanente.</p><div class="form-actions"><button class="secondary-button" id="cancelDelete">Cancelar</button><button class="danger-button" id="confirmDelete">Sí, eliminar</button></div></section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
